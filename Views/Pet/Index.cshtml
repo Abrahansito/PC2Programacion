@@ -12,27 +12,42 @@
     <form asp-action="Registrar" asp-controller="Pet" method="post" class="border rounded p-4 shadow-sm bg-light">
         <div class="mb-3">
             <label asp-for="Nombre" class="form-label">Nombre de la mascota</label>
-
+            <input asp-for="Nombre" class="form-control" required />
             <span asp-validation-for="Nombre" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-
+            <label asp-for="Edad" class="form-label">Edad (en años)</label>
+            <input asp-for="Edad" type="number" min="0" class="form-control" required />
             <span asp-validation-for="Edad" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-
+            <label asp-for="Tipo" class="form-label">Tipo de mascota</label>
+            <input asp-for="Tipo" class="form-control" placeholder="Ej: Perro, Gato" required />
             <span asp-validation-for="Tipo" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-
+            <label asp-for="EstadoAdopcion" class="form-label">Estado de adopción</label>
+            <select asp-for="EstadoAdopcion" class="form-select" required>
+                <option value="">-- Selecciona un estado --</option>
+                <option value="true">Disponible</option>
+                <option value="false">Adoptada</option>
+            </select>
+            <span asp-validation-for="EstadoAdopcion" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Registrar Mascota</button>
     </form>
 
+    @if (TempData["mensaje"] != null)
+    {
+        <div class="alert alert-success text-center mt-3">
+            @TempData["mensaje"]
+        </div>
+    }
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
