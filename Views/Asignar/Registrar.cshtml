@@ -1,0 +1,49 @@
+@model PC2Programacion.Models.Adoption
+
+@{
+    ViewData["Title"] = "Crear Adopción";
+}
+
+
+
+<h2>Asignar una Mascota a un Adoptante</h2>
+
+<div class="container mt-4">
+    <form asp-action="CrearAdopcion" method="post" class="border rounded p-4 shadow-sm bg-light">
+        <div class="mb-3">
+            <label asp-for="PetId" class="form-label">Seleccionar Mascota</label>
+            <select asp-for="PetId" class="form-select" required>
+                <option value="">Seleccione una mascota</option>
+                @if (ViewBag.Mascotas != null)
+                {
+                    foreach (var pet in ViewBag.Mascotas)
+                    {
+                        <option value="@pet.Id">@pet.Nombre</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="PetId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AdopterId" class="form-label">Seleccionar Adoptante</label>
+            <select asp-for="AdopterId" class="form-select" required>
+                <option value="">Seleccione un adoptante</option>
+                @if (ViewBag.Adoptantes != null)
+                {
+                    foreach (var adopter in ViewBag.Adoptantes)
+                    {
+                        <option value="@adopter.Id">@adopter.Nombre</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="AdopterId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Registrar Adopción</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
