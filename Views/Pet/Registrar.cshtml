@@ -1,0 +1,50 @@
+@model PC2Programacion.Models.Pet
+
+@{
+    ViewData["Title"] = "Registrar Mascota";
+}
+
+<h2 class="text-center mt-4">Registrar Nueva Mascota</h2>
+
+<div class="container mt-4">
+    <form asp-action="Registrar" asp-controller="Pet" method="post" class="border rounded p-4 shadow-sm bg-light">
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label">Nombre de la mascota</label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Edad" class="form-label">Edad</label>
+            <input asp-for="Edad" type="number" class="form-control" />
+            <span asp-validation-for="Edad" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Tipo" class="form-label">Tipo</label>
+            <input asp-for="Tipo" class="form-control" placeholder="Ej: perro, gato" />
+            <span asp-validation-for="Tipo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EstadoAdopcion" class="form-label">¿Está disponible para adopción?</label>
+            <select asp-for="EstadoAdopcion" class="form-select">
+                <option value="true">Disponible</option>
+                <option value="false">Adoptada</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Registrar Mascota</button>
+    </form>
+</div>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success text-center mt-2">
+        @TempData["mensaje"]
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
