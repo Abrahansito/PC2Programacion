@@ -64,7 +64,7 @@ namespace PC2Programacion.Controllers
             }
 
             
-            _context.Adoption.Add(adoption);
+            _context.DbSetAdoption.Add(adoption);
             _context.SaveChanges();
 
             TempData["mensaje"] = "Adopción registrada correctamente.";
