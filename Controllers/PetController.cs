@@ -42,8 +42,8 @@ namespace PC2Programacion.Controllers
     public IActionResult CrearAdopcion()
     {
         
-        ViewBag.Mascotas = _context.Pet.Where(p => p.EstadoAdopcion == true).ToList();
-        ViewBag.Adoptantes = _context.Adopter.ToList();
+        ViewBag.Mascotas = _context.DbSetPet.Where(p => p.EstadoAdopcion == true).ToList();
+        ViewBag.Adoptantes = _context.DbSetAdopter.ToList();
 
         return View();
     }
@@ -56,11 +56,11 @@ namespace PC2Programacion.Controllers
         if (ModelState.IsValid)
         {
         
-            var pet = _context.Pet.FirstOrDefault(p => p.Id == adoption.PetId);
+            var pet = _context.DbSetPet.FirstOrDefault(p => p.Id == adoption.PetId);
             if (pet != null)
             {
                 pet.EstadoAdopcion = false;
-                _context.Pet.Update(pet);
+                _context.DbSetPet.Update(pet);
             }
 
             
@@ -76,7 +76,7 @@ namespace PC2Programacion.Controllers
 
     public IActionResult ListaAdopciones()
     {
-        var adopciones = _context.Adoption
+        var adopciones = _context.DbSetAdoption
             .Include(a => a.Pet)
             .Include(a => a.Adopter)
             .ToList();
