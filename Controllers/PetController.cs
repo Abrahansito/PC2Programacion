@@ -56,7 +56,6 @@ namespace PC2Programacion.Controllers
                 return RedirectToAction("ListaAdopciones");
             }
 
-            // Si el modelo no es válido, volver a cargar ViewBag
             ViewBag.Mascotas = _context.DbSetPet.Where(p => p.EstadoAdopcion == true).ToList();
             ViewBag.Adoptantes = _context.DbSetAdopter.ToList();
             return View(adoption);
