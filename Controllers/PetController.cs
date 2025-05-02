@@ -5,10 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
+
 using PC2Programacion.Data;
 using PC2Programacion.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+
 
 
 
@@ -18,7 +21,9 @@ namespace PC2Programacion.Controllers
     public class PetController : Controller
     {
         private readonly ILogger<PetController> _logger;
+
         private readonly ApplicationDbContext _context;
+
 
         public PetController(ILogger<PetController> logger, ApplicationDbContext context)
         {
@@ -31,6 +36,54 @@ namespace PC2Programacion.Controllers
         {
             return View();
         }
+
+
+        
+    public IActionResult CrearAdopcion()
+    {
+        
+        ViewBag.Mascotas = _context.Pet.Where(p => p.EstadoAdopcion == true).ToList();
+        ViewBag.Adoptantes = _context.Adopter.ToList();
+
+        return View();
+    }
+
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult CrearAdopcion(Adoption adoption)
+    {
+        if (ModelState.IsValid)
+        {
+        
+            var pet = _context.Pet.FirstOrDefault(p => p.Id == adoption.PetId);
+            if (pet != null)
+            {
+                pet.EstadoAdopcion = false;
+                _context.Pet.Update(pet);
+            }
+
+            
+            _context.Adoption.Add(adoption);
+            _context.SaveChanges();
+
+            TempData["mensaje"] = "Adopción registrada correctamente.";
+            return RedirectToAction("ListaAdopciones");
+        }
+        return View(adoption);
+    }
+
+
+    public IActionResult ListaAdopciones()
+    {
+        var adopciones = _context.Adoption
+            .Include(a => a.Pet)
+            .Include(a => a.Adopter)
+            .ToList();
+
+        return View(adopciones);
+    }
+
 
 
         
@@ -56,6 +109,7 @@ namespace PC2Programacion.Controllers
             TempData["mensaje"] = "Mascota registrada correctamente.";
             return RedirectToAction("Registrar");
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
