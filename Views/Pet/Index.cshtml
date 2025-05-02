@@ -4,6 +4,13 @@
     ViewData["Title"] = "Registrar Mascota";
 }
 
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success text-center mt-2">
+        @TempData["mensaje"]
+    </div>
+}
+
 <h2 class="text-center mt-4">Registrar Nueva Mascota</h2>
 
 <div class="container mt-4">
@@ -38,12 +45,6 @@
     </form>
 </div>
 
-@if (TempData["mensaje"] != null)
-{
-    <div class="alert alert-success text-center mt-2">
-        @TempData["mensaje"]
-    </div>
-}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
