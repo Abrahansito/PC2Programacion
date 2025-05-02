@@ -24,10 +24,7 @@ namespace PC2Programacion.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
 
         public IActionResult CrearAdopcion()
         {
@@ -71,7 +68,7 @@ namespace PC2Programacion.Controllers
             return View(adopciones);
         }
 
-        public IActionResult Registrar()
+        public IActionResult Index()
         {
             return View();
         }
@@ -82,14 +79,14 @@ namespace PC2Programacion.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(pet);
+                return View("Index", pet);
             }
 
             _context.DbSetPet.Add(pet);
             _context.SaveChanges();
 
             TempData["mensaje"] = "Mascota registrada correctamente.";
-            return RedirectToAction("Registrar");
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
