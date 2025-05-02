@@ -7,26 +7,32 @@
 <h2>Asignar una Mascota a un Adoptante</h2>
 
 <div class="container mt-4">
-    <form asp-action="CrearAdopcion" asp-controller="Pet" method="post" class="border rounded p-4 shadow-sm bg-light">
+    <form asp-action="CrearAdopcion" method="post" class="border rounded p-4 shadow-sm bg-light">
         <div class="mb-3">
-            <label for="PetId" class="form-label">Seleccionar Mascota</label>
+            <label asp-for="PetId" class="form-label">Seleccionar Mascota</label>
             <select asp-for="PetId" class="form-select" required>
                 <option value="">Seleccione una mascota</option>
-                @foreach (var pet in ViewBag.Mascotas)
+                @if (ViewBag.Mascotas != null)
                 {
-                    <option value="@pet.Id">@pet.Nombre</option>
+                    foreach (var pet in ViewBag.Mascotas)
+                    {
+                        <option value="@pet.Id">@pet.Nombre</option>
+                    }
                 }
             </select>
             <span asp-validation-for="PetId" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label for="AdopterId" class="form-label">Seleccionar Adoptante</label>
+            <label asp-for="AdopterId" class="form-label">Seleccionar Adoptante</label>
             <select asp-for="AdopterId" class="form-select" required>
                 <option value="">Seleccione un adoptante</option>
-                @foreach (var adopter in ViewBag.Adoptantes)
+                @if (ViewBag.Adoptantes != null)
                 {
-                    <option value="@adopter.Id">@adopter.Nombre</option>
+                    foreach (var adopter in ViewBag.Adoptantes)
+                    {
+                        <option value="@adopter.Id">@adopter.Nombre</option>
+                    }
                 }
             </select>
             <span asp-validation-for="AdopterId" class="text-danger"></span>

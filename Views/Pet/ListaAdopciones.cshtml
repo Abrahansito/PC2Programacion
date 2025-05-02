@@ -4,26 +4,33 @@
     ViewData["Title"] = "Lista de Adopciones";
 }
 
-<h2>Lista de Adopcioness</h2>
+<h2>Lista de Adopciones</h2>
 
 <div class="container mt-4">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nombre de la Mascota</th>
-                <th>Nombre del Adoptante</th>
-                <th>Estado de Adopción</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var adopcion in Model)
-            {
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
                 <tr>
-                    <td>@adopcion.Pet.Nombre</td>
-                    <td>@adopcion.Adopter.Nombre</td>
-                    <td>@(adopcion.Pet.EstadoAdopcion ? "Disponible" : "Adoptada")</td>
+                    <th>Nombre de la Mascota</th>
+                    <th>Nombre del Adoptante</th>
+                    <th>Estado de Adopción</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var adopcion in Model)
+                {
+                    <tr>
+                        <td>@adopcion.Pet.Nombre</td>
+                        <td>@adopcion.Adopter.Nombre</td>
+                        <td>@(adopcion.Pet.EstadoAdopcion ? "Disponible" : "Adoptada")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">No hay adopciones registradas.</div>
+    }
 </div>
