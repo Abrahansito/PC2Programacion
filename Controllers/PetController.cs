@@ -72,7 +72,7 @@ namespace PC2Programacion.Controllers
         return View(adopciones);
     }
 
-
+    
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
