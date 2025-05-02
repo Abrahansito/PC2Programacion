@@ -103,7 +103,7 @@ namespace PC2Programacion.Controllers
                 return View(pet);
             }
 
-            _context.Pets.Add(pet);
+            _context.Pet.Add(pet);
             _context.SaveChanges();
 
             TempData["mensaje"] = "Mascota registrada correctamente.";
