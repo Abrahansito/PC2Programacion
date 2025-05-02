@@ -1,0 +1,29 @@
+@model IEnumerable<PC2Programacion.Models.Adoption>
+
+@{
+    ViewData["Title"] = "Lista de Adopciones";
+}
+
+<h2>Lista de Adopciones</h2>
+
+<div class="container mt-4">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre de la Mascota</th>
+                <th>Nombre del Adoptante</th>
+                <th>Estado de Adopción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var adopcion in Model)
+            {
+                <tr>
+                    <td>@adopcion.Pet.Nombre</td>
+                    <td>@adopcion.Adopter.Nombre</td>
+                    <td>@(adopcion.Pet.EstadoAdopcion ? "Disponible" : "Adoptada")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
